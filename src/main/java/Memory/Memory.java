@@ -6,56 +6,85 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.ImageViewBuilder;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
+
+import java.util.List;
 
 public class Memory extends Application {
+    private final Deck deck = new Deck();
 
-    private Image imageback = new Image("Background.jpg");
-
-    private Image cardFAXE = new Image("FAXE_CARD.jpg");
-    //private Image cardHARNAS = new Image("HARNAS_CARD.png");
-    private Image cardKARPACKIE = new Image("KARPACKIE_CARD.jpg");
-    private Image cardKUFLOWE = new Image("KUFLOWE_CARD.jpg");
-    private Image cardKUSTOSZ = new Image("KUSTOSZ_CARD.jpg");
-    private Image cardROMPER = new Image("ROMPER_CARD.jpg");
-    private Image cardTATRA = new Image("TATRA_CARD.jpg");
-    private Image cardVIP = new Image("VIP_CARD.jpg");
-
-    private FlowPane cards = new FlowPane(Orientation.HORIZONTAL);
-
-    public static void main(String[] args) {
-
+    public static void main (String[]args){
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
-        BackgroundImage backgroundImage = new BackgroundImage(imageback, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
-        Background background = new Background(backgroundImage);
 
+        List<Image> cards = deck.cardsDeckPreparation();
+
+        Image imagebackPlayGround = new Image("Background.jpg");
+        BackgroundSize backgroundSizePlayGround = new BackgroundSize(100, 100, true, true, true, false);
+        BackgroundImage backgroundImagePlayGround = new BackgroundImage(imagebackPlayGround, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSizePlayGround);
+        Background backgroundPlayGround = new Background(backgroundImagePlayGround);
+
+        //Start button
+        FlowPane buttonStart = new FlowPane(Orientation.HORIZONTAL);
+        Button start = new Button("START");
+        //start.setOnAction((e) -> );
+        buttonStart.getChildren().add(start);
+
+        //Exit button
+        FlowPane buttonExit = new FlowPane(Orientation.HORIZONTAL);
+        Button exit = new Button("EXIT");
+        exit.setOnAction((e) -> System.exit(0));
+        buttonExit.getChildren().add(exit);
+
+        //Playground
+        TilePane cardsPane = new TilePane();
+        cardsPane.setAlignment(Pos.BASELINE_CENTER);
+        cardsPane.setLayoutX(0);
+        cardsPane.setPadding(new Insets(0,0,0,350));
+        cardsPane.setLayoutY(0);
+        cardsPane.setHgap(120);
+        cardsPane.setVgap(10);
+        cardsPane.setPrefColumns(4);
+        cardsPane.setPrefRows(4);
+        for (Image card: cards) {
+            ImageView imageView = ImageViewBuilder.create()
+                    .preserveRatio(true)
+                    .fitHeight(200)
+                    .image(card)
+                    .build();
+            cardsPane.getChildren().add(imageView);
+        }
+
+
+       //Main grid
         GridPane grid = new GridPane();
-        grid.setAlignment(Pos.TOP_LEFT);
-        grid.setPadding(new Insets(11.5,12.5,13.5,14.5));
-        grid.setHgap(5.5);
-        grid.setVgap(5.5);
-        grid.setBackground(background);
+        grid.setBackground(backgroundPlayGround);
+        grid.setAlignment(Pos.CENTER_LEFT);
+        grid.setPadding(new Insets(11.5, 12.5, 13.5, 50));
+        grid.setHgap(10);
+        grid.setVgap(10);
 
-        ImageView imgCardFAXE = new ImageView(cardFAXE);
-        cards.getChildren().add(imgCardFAXE);
-        ImageView imgCardROMPER = new ImageView(cardROMPER);
-        cards.getChildren().add(imgCardROMPER);
+        grid.add(buttonExit, 0, 0, 1, 1);
+        grid.add(buttonStart, 0, 50, 1, 1);
+        grid.add(cardsPane, 0,20, 10, 10);
 
-        grid.add(cards,0,0,2,2);
+        Scene playScene = new Scene(grid, 1400, 900, Color.BLACK);
 
-        Scene scene = new Scene(grid, 1600, 900, Color.BLACK);
-
-        primaryStage.setTitle("ROMPER - Play for VABANK");
-        primaryStage.setScene(scene);
+        primaryStage.setScene(playScene);
+        primaryStage.setTitle("Romper");
         primaryStage.show();
+
+
+
     }
+
 }
