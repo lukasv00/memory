@@ -2,13 +2,11 @@ package Memory;
 
 import javafx.scene.image.Image;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Deck {
 
-    private final List<Image> cards = new ArrayList<>();
+    private final List<Image> cards = new LinkedList<>();
 
     private Image cardFAXE = new Image("FAXE_CARD.jpg");
     private Image cardHARNAS = new Image("HARNAS_CARD.png");
@@ -18,11 +16,6 @@ public class Deck {
     private Image cardROMPER = new Image("ROMPER_CARD.jpg");
     private Image cardTATRA = new Image("TATRA_CARD.jpg");
     private Image cardVIP = new Image("VIP_CARD.jpg");
-
-    public List<Image> cardsCollection() {
-
-        return new ArrayList<>(cards);
-    }
 
 
     public List<Image> cardsDeckPreparation(){
@@ -35,11 +28,12 @@ public class Deck {
         cards.add(cardTATRA);
         cards.add(cardVIP);
 
-        List<Image> cardsDeck = new ArrayList<>();
-            for(Image card: cards){
-                cardsDeck.add(card);
-                cardsDeck.add(card);
-            }
+        List<Image> cardsDeck = new LinkedList<>();
+        for(Image card: cards){
+            cardsDeck.add(card);
+            cardsDeck.add(card);
+        }
+        Collections.shuffle(cardsDeck);
         return new ArrayList<>(cardsDeck);
     }
 

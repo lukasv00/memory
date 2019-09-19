@@ -7,17 +7,25 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.ImageViewBuilder;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.List;
 
+
 public class Memory extends Application {
-    private final Deck deck = new Deck();
+    private final Board board = new Board();
+
+    //Playground
+    Pane playground = board.playGround();
+    List<Button> cards = board.getButtonsWithFunction();
+
+
+    //Label
+    private Label counter = new Label("Counter: ");
 
     public static void main (String[]args){
         launch(args);
@@ -26,44 +34,10 @@ public class Memory extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        List<Image> cards = deck.cardsDeckPreparation();
-
         Image imagebackPlayGround = new Image("Background.jpg");
         BackgroundSize backgroundSizePlayGround = new BackgroundSize(100, 100, true, true, true, false);
         BackgroundImage backgroundImagePlayGround = new BackgroundImage(imagebackPlayGround, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSizePlayGround);
         Background backgroundPlayGround = new Background(backgroundImagePlayGround);
-
-        //Start button
-        FlowPane buttonStart = new FlowPane(Orientation.HORIZONTAL);
-        Button start = new Button("START");
-        //start.setOnAction((e) -> );
-        buttonStart.getChildren().add(start);
-
-        //Exit button
-        FlowPane buttonExit = new FlowPane(Orientation.HORIZONTAL);
-        Button exit = new Button("EXIT");
-        exit.setOnAction((e) -> System.exit(0));
-        buttonExit.getChildren().add(exit);
-
-        //Playground
-        TilePane cardsPane = new TilePane();
-        cardsPane.setAlignment(Pos.BASELINE_CENTER);
-        cardsPane.setLayoutX(0);
-        cardsPane.setPadding(new Insets(0,0,0,350));
-        cardsPane.setLayoutY(0);
-        cardsPane.setHgap(120);
-        cardsPane.setVgap(10);
-        cardsPane.setPrefColumns(4);
-        cardsPane.setPrefRows(4);
-        for (Image card: cards) {
-            ImageView imageView = ImageViewBuilder.create()
-                    .preserveRatio(true)
-                    .fitHeight(200)
-                    .image(card)
-                    .build();
-            cardsPane.getChildren().add(imageView);
-        }
-
 
        //Main grid
         GridPane grid = new GridPane();
@@ -73,17 +47,27 @@ public class Memory extends Application {
         grid.setHgap(10);
         grid.setVgap(10);
 
-        grid.add(buttonExit, 0, 0, 1, 1);
+        //Exit button
+        FlowPane buttonExit = new FlowPane(Orientation.HORIZONTAL);
+        Button exit = new Button("EXIT");
+        exit.setOnAction((e) -> System.exit(0));
+        buttonExit.getChildren().add(exit);
+
+        //Start button
+        FlowPane buttonStart = new FlowPane(Orientation.HORIZONTAL);
+        Button start = new Button("START");
+        start.setOnAction((e) -> grid.add(playground, 0,3, 10, 10));
+        buttonStart.getChildren().add(start);
+
+        grid.add(buttonExit, 0, 1, 1, 1);
         grid.add(buttonStart, 0, 50, 1, 1);
-        grid.add(cardsPane, 0,20, 10, 10);
+        grid.add(counter, 0, 20, 1, 1);
 
         Scene playScene = new Scene(grid, 1400, 900, Color.BLACK);
 
         primaryStage.setScene(playScene);
         primaryStage.setTitle("Romper");
         primaryStage.show();
-
-
 
     }
 
