@@ -3,10 +3,13 @@ package Memory;
 import javafx.scene.image.Image;
 
 import java.util.*;
+import java.util.List;
 
 public class Deck {
 
-    private final List<Image> cards = new LinkedList<>();
+    private final List<Image> beerImages = new LinkedList<>();
+    private final List<BeerButton> buttonCollection = new LinkedList<>();
+    private final List<BeerButton> buttonCollectionDoubled = new LinkedList<>();
 
     private Image cardFAXE = new Image("FAXE_CARD.jpg");
     private Image cardHARNAS = new Image("HARNAS_CARD.png");
@@ -18,23 +21,32 @@ public class Deck {
     private Image cardVIP = new Image("VIP_CARD.jpg");
 
 
-    public List<Image> cardsDeckPreparation(){
-        cards.add(cardFAXE);
-        cards.add(cardHARNAS);
-        cards.add(cardKARPACKIE);
-        cards.add(cardKUFLOWE);
-        cards.add(cardKUSTOSZ);
-        cards.add(cardROMPER);
-        cards.add(cardTATRA);
-        cards.add(cardVIP);
+    public List<BeerButton> cardsDeckPreparation(){
+        beerImages.add(cardFAXE);
+        beerImages.add(cardHARNAS);
+        beerImages.add(cardKARPACKIE);
+        beerImages.add(cardKUFLOWE);
+        beerImages.add(cardKUSTOSZ);
+        beerImages.add(cardROMPER);
+        beerImages.add(cardTATRA);
+        beerImages.add(cardVIP);
 
-        List<Image> cardsDeck = new LinkedList<>();
-        for(Image card: cards){
-            cardsDeck.add(card);
-            cardsDeck.add(card);
+        for(int i=0; i<beerImages.size(); i++){
+            buttonCollection.add(new BeerButton(i,beerImages.get(i)));
+            buttonCollection.add(new BeerButton(i,beerImages.get(i)));
         }
-        Collections.shuffle(cardsDeck);
-        return new ArrayList<>(cardsDeck);
+
+        for(BeerButton button: buttonCollection){
+            button.setCover(button);
+            button.setOnMouseClicked(e -> button.setBeer(button));
+        }
+
+        Collections.shuffle(buttonCollection);
+        return new LinkedList<>(buttonCollection);
+    }
+
+    public int buttonIndex(BeerButton button){
+        return button.getIndex();
     }
 
 }

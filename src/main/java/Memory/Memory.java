@@ -13,15 +13,11 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.util.List;
-
-
 public class Memory extends Application {
     private final Board board = new Board();
 
     //Playground
-    Pane playground = board.playGround();
-    List<Button> cards = board.getButtonsWithFunction();
+    private Pane playground = board.playGround();
 
 
     //Label
