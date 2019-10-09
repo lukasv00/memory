@@ -21,7 +21,14 @@ public class Memory extends Application {
 
 
     //Label
-    private Label counter = new Label("Counter: ");
+    private Label counterLabel = new Label("Counter: ");
+
+  /*  public Label labelBuilder(){
+        StringBuilder counterBulider = new StringBuilder();
+        counterBulider.append(counterLabel).append(board.getCounter());
+        counterLabel.setText(counterBulider.toString());
+        return counterLabel;
+    }*/
 
     public static void main (String[]args){
         launch(args);
@@ -52,12 +59,13 @@ public class Memory extends Application {
         //Start button
         FlowPane buttonStart = new FlowPane(Orientation.HORIZONTAL);
         Button start = new Button("START");
-        start.setOnAction((e) -> grid.add(playground, 0,3, 10, 10));
+        start.setOnAction((e) -> grid.add(playground, 0,3, 30, 50));
         buttonStart.getChildren().add(start);
 
         grid.add(buttonExit, 0, 1, 1, 1);
         grid.add(buttonStart, 0, 50, 1, 1);
-        grid.add(counter, 0, 20, 1, 1);
+        //grid.add(labelBuilder(), 0, 20, 1, 1);
+
 
         Scene playScene = new Scene(grid, 1400, 900, Color.BLACK);
 

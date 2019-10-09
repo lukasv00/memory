@@ -7,21 +7,19 @@ import java.util.List;
 
 public class Deck {
 
-    private final List<Image> beerImages = new LinkedList<>();
-    private final List<BeerButton> buttonCollection = new LinkedList<>();
-    private final List<BeerButton> buttonCollectionDoubled = new LinkedList<>();
+    public static List<BeerButton> cardsDeckPreparation(){
 
-    private Image cardFAXE = new Image("FAXE_CARD.jpg");
-    private Image cardHARNAS = new Image("HARNAS_CARD.png");
-    private Image cardKARPACKIE = new Image("KARPACKIE_CARD.jpg");
-    private Image cardKUFLOWE = new Image("KUFLOWE_CARD.jpg");
-    private Image cardKUSTOSZ = new Image("KUSTOSZ_CARD.jpg");
-    private Image cardROMPER = new Image("ROMPER_CARD.jpg");
-    private Image cardTATRA = new Image("TATRA_CARD.jpg");
-    private Image cardVIP = new Image("VIP_CARD.jpg");
+        Image cardFAXE = new Image("FAXE_CARD.jpg");
+        Image cardHARNAS = new Image("HARNAS_CARD.png");
+        Image cardKARPACKIE = new Image("KARPACKIE_CARD.jpg");
+        Image cardKUFLOWE = new Image("KUFLOWE_CARD.jpg");
+        Image cardKUSTOSZ = new Image("KUSTOSZ_CARD.jpg");
+        Image cardROMPER = new Image("ROMPER_CARD.jpg");
+        Image cardTATRA = new Image("TATRA_CARD.jpg");
+        Image cardVIP = new Image("VIP_CARD.jpg");
 
+        final List<Image> beerImages = new ArrayList<>();
 
-    public List<BeerButton> cardsDeckPreparation(){
         beerImages.add(cardFAXE);
         beerImages.add(cardHARNAS);
         beerImages.add(cardKARPACKIE);
@@ -31,22 +29,19 @@ public class Deck {
         beerImages.add(cardTATRA);
         beerImages.add(cardVIP);
 
+        final List<BeerButton> buttonCollection = new ArrayList();
+
         for(int i=0; i<beerImages.size(); i++){
             buttonCollection.add(new BeerButton(i,beerImages.get(i)));
             buttonCollection.add(new BeerButton(i,beerImages.get(i)));
         }
 
         for(BeerButton button: buttonCollection){
-            button.setCover(button);
-            button.setOnMouseClicked(e -> button.setBeer(button));
+            button.setCover();
         }
 
         Collections.shuffle(buttonCollection);
-        return new LinkedList<>(buttonCollection);
-    }
 
-    public int buttonIndex(BeerButton button){
-        return button.getIndex();
+        return buttonCollection;
     }
-
 }
