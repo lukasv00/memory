@@ -3,7 +3,10 @@ package Memory;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 import java.util.List;
 
@@ -13,7 +16,14 @@ public class Board {
     private List<BeerButton> beerButtonList = cardsDeckPreparation();
     private BeerButton buttonClicked1 = null;
     private BeerButton buttonClicked2 = null;
-    private int counter = 0;
+    private Label pairsLabel = new Label("Pairs shown: 0");
+    private int pairsCounter = 0;
+    private Label movesLabel = new Label("Moves: 0");
+    private int movesCounter = 0;
+    private boolean gameEnd = false;
+    private Label gameEndLabel = new Label("");
+
+
 
     public TilePane playGround() {
 
@@ -26,6 +36,11 @@ public class Board {
                 } else {
                     buttonClicked2 = source;
                     buttonClicked2.setBeer();
+                    movesCounter++;
+
+                    StringBuilder movesBulider = new StringBuilder();
+                    movesBulider.append("Moves: ").append(movesCounter);
+                    movesLabel.setText(movesBulider.toString());
                 }
             });
             button.setOnMouseReleased(e -> event());
@@ -34,7 +49,7 @@ public class Board {
         TilePane cardsPane = new TilePane();
         cardsPane.setAlignment(Pos.BASELINE_CENTER);
         cardsPane.setLayoutX(0);
-        cardsPane.setPadding(new Insets(20, 0, 0, 300));
+        cardsPane.setPadding(new Insets(20, 0, 0, 200));
         cardsPane.setLayoutY(0);
         cardsPane.setHgap(80);
         cardsPane.setVgap(5);
@@ -60,16 +75,39 @@ public class Board {
                 buttonClicked1 = null;
                 buttonClicked2 = null;
             } else {
-                counter++;
+                pairsCounter++;
+                buttonClicked1.setDisable(true);
+                buttonClicked2.setDisable(true);
                 buttonClicked1 = null;
                 buttonClicked2 = null;
+            }
+            StringBuilder pairsBulider = new StringBuilder();
+            pairsBulider.append("Pairs shown: ").append(pairsCounter);
+            pairsLabel.setText(pairsBulider.toString());
+
+            if(pairsCounter == 8){
+                gameEnd = true;
+                gameEndLabel.setText("YOU WON");
             }
         }));
         event.start();
     }
+    public Label counterLabelBuilder(){
+        pairsLabel.setFont(new Font("Arial",24));
+        pairsLabel.setTextFill(Color.web("#FFF"));
+        return pairsLabel;
+    }
 
-    public int getCounter() {
-        return counter;
+    public Label movesLabelBuilder(){
+        movesLabel.setFont(new Font("Arial",24));
+        movesLabel.setTextFill(Color.web("#FFF"));
+        return movesLabel;
+    }
+
+    public Label gameEndLabel() {
+        gameEndLabel.setFont(new Font("Arial",24));
+        gameEndLabel.setTextFill(Color.web("#FFF"));
+        return gameEndLabel;
     }
 }
 
