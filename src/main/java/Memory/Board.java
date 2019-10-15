@@ -25,7 +25,7 @@ public class Board {
 
 
 
-    public TilePane playGround() {
+    public TilePane playGround(int time) {
 
         for (BeerButton button : beerButtonList) {
             button.setOnMousePressed(e -> {
@@ -43,13 +43,13 @@ public class Board {
                     movesLabel.setText(movesBulider.toString());
                 }
             });
-            button.setOnMouseReleased(e -> event());
+            button.setOnMouseReleased(e -> event(time));
         }
 
         TilePane cardsPane = new TilePane();
         cardsPane.setAlignment(Pos.BASELINE_CENTER);
         cardsPane.setLayoutX(0);
-        cardsPane.setPadding(new Insets(20, 0, 0, 200));
+        cardsPane.setPadding(new Insets(20, 0, 0, 300));
         cardsPane.setLayoutY(0);
         cardsPane.setHgap(80);
         cardsPane.setVgap(5);
@@ -62,11 +62,11 @@ public class Board {
         return cardsPane;
     }
 
-    public void event() {
+    public void event(int time) {
         Thread event = new Thread(() -> Platform.runLater(() -> {
             if (buttonClicked1.getIndex() != buttonClicked2.getIndex()) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(time);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
