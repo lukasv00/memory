@@ -6,8 +6,13 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static Memory.Deck.cardsDeckPreparation;
@@ -20,10 +25,9 @@ public class Board {
     private int pairsCounter = 0;
     private Label movesLabel = new Label("Moves: 0");
     private int movesCounter = 0;
-    private boolean gameEnd = false;
     private Label gameEndLabel = new Label("");
-
-
+    private double scoreRatio = 0;
+    private boolean gameEnd = false;
 
     public TilePane playGround(int time) {
 
@@ -62,7 +66,7 @@ public class Board {
         return cardsPane;
     }
 
-    public void event(int time) {
+    public boolean event(int time) {
         Thread event = new Thread(() -> Platform.runLater(() -> {
             if (buttonClicked1.getIndex() != buttonClicked2.getIndex()) {
                 try {
@@ -85,29 +89,49 @@ public class Board {
             pairsBulider.append("Pairs shown: ").append(pairsCounter);
             pairsLabel.setText(pairsBulider.toString());
 
-            if(pairsCounter == 8){
-                gameEnd = true;
+            if (pairsCounter == 8) {
                 gameEndLabel.setText("YOU WON");
+                //save();
+                gameEnd = true;
             }
         }));
         event.start();
+        return gameEnd;
     }
-    public Label counterLabelBuilder(){
-        pairsLabel.setFont(new Font("Arial",24));
+
+    public void save() {
+        Path path = (Path) Paths.get("C:\\Users\\Lukas\\ProjectsJava\\memory\\src\\main\\resources\\Score.txt");
+        scoreRatio = 2 * pairsCounter / movesCounter;
+
+        try (
+                BufferedWriter writer = Files.newBufferedWriter((java.nio.file.Path) path)) {
+            writer.write("Player: " + scoreRatio);
+        } catch (
+                IOException e) {
+            System.out.println("wystąpił błąd: " + e);
+        }
+    }
+
+    public Label counterLabelBuilder() {
+        pairsLabel.setFont(new Font("Arial", 24));
         pairsLabel.setTextFill(Color.web("#FFF"));
         return pairsLabel;
     }
 
-    public Label movesLabelBuilder(){
-        movesLabel.setFont(new Font("Arial",24));
+    public Label movesLabelBuilder() {
+        movesLabel.setFont(new Font("Arial", 24));
         movesLabel.setTextFill(Color.web("#FFF"));
         return movesLabel;
     }
 
     public Label gameEndLabel() {
-        gameEndLabel.setFont(new Font("Arial",24));
+        gameEndLabel.setFont(new Font("Arial", 24));
         gameEndLabel.setTextFill(Color.web("#FFF"));
         return gameEndLabel;
+    }
+
+    public boolean isGameEnd() {
+        return gameEnd;
     }
 }
 
