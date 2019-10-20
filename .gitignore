@@ -1,8 +1,9 @@
 HELP.md
 .gradle
-**/build/
+build/
 !gradle/wrapper/gradle-wrapper.jar
-
+**/out/
+**/build/
 !**/src/main/**
 !**/src/test/**
 
@@ -20,7 +21,7 @@ HELP.md
 *.iws
 *.iml
 *.ipr
-**/out/
+out/
 
 ### NetBeans ###
 /nbproject/private/
