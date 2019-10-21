@@ -8,6 +8,7 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.util.List;
 import static Memory.Deck.cardsDeckPreparation;
 
 public class Board {
+    private Scoreboard scoreboard = new Scoreboard();
     private List<BeerButton> beerButtonList = cardsDeckPreparation();
     private BeerButton buttonClicked1 = null;
     private BeerButton buttonClicked2 = null;
@@ -27,10 +29,12 @@ public class Board {
     private int movesCounter = 0;
     private Label gameEndLabel = new Label("");
     private double scoreRatio = 0;
-    private boolean gameEnd = false;
+    private Stage primaryStage;
+
+    public Board() throws IOException {
+    }
 
     public TilePane playGround(int time) {
-
         for (BeerButton button : beerButtonList) {
             button.setOnMousePressed(e -> {
                 BeerButton source = (BeerButton) e.getSource();
@@ -66,7 +70,7 @@ public class Board {
         return cardsPane;
     }
 
-    public boolean event(int time) {
+    public void event(int time) {
         Thread event = new Thread(() -> Platform.runLater(() -> {
             if (buttonClicked1.getIndex() != buttonClicked2.getIndex()) {
                 try {
@@ -92,11 +96,10 @@ public class Board {
             if (pairsCounter == 8) {
                 gameEndLabel.setText("YOU WON");
                 //save();
-                gameEnd = true;
+                primaryStage.setScene(scoreboard.scoreScene());
             }
         }));
         event.start();
-        return gameEnd;
     }
 
     public void save() {
@@ -128,10 +131,6 @@ public class Board {
         gameEndLabel.setFont(new Font("Arial", 24));
         gameEndLabel.setTextFill(Color.web("#FFF"));
         return gameEndLabel;
-    }
-
-    public boolean isGameEnd() {
-        return gameEnd;
     }
 }
 

@@ -21,7 +21,7 @@ public class BoardScene {
     }
 
     public Scene boardScene(int time){
-        //Main grid
+
         GridPane grid = new GridPane();
         grid.setBackground(backgroundPlayGround);
         grid.setAlignment(Pos.TOP_LEFT);
