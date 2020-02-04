@@ -3,14 +3,11 @@ package Memory;
 import javafx.application.Application;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -36,9 +33,9 @@ public class Memory extends Application {
         //DIFFICULTY
         GridPane difficultyGrid = getGridPane(backgroundIntro);
 
-        FlowPane buttonEasy = getFlowPaneButton(boardScener.boardScene(1000), primaryStage, "EASY");
-        FlowPane buttonMedium = getFlowPaneButton(boardScener.boardScene(400), primaryStage, "MEDIUM");
-        FlowPane buttonHard = getFlowPaneButton(boardScener.boardScene(100), primaryStage, "HARD");
+        FlowPane buttonEasy = MenuButtons.getFlowPaneButton(boardScener.boardScene(1000), primaryStage, "EASY");
+        FlowPane buttonMedium = MenuButtons.getFlowPaneButton(boardScener.boardScene(400), primaryStage, "MEDIUM");
+        FlowPane buttonHard = MenuButtons.getFlowPaneButton(boardScener.boardScene(100), primaryStage, "HARD");
 
         difficultyGrid.add(buttonEasy, 35, 50, 1, 1);
         difficultyGrid.add(buttonMedium, 35, 55, 1, 1);
@@ -50,7 +47,7 @@ public class Memory extends Application {
         //INTRO
         GridPane introGrid = getGridPane(backgroundIntro);
 
-        FlowPane buttonStart = getFlowPaneButton(difficultyScene, primaryStage, "START");
+        FlowPane buttonStart = MenuButtons.getFlowPaneButton(difficultyScene, primaryStage, "START");
 
         introGrid.add(buttonStart, 35, 65, 1, 1);
 
@@ -72,17 +69,7 @@ public class Memory extends Application {
         return difficultyGrid;
     }
 
-    private FlowPane getFlowPaneButton(Scene scene, Stage primaryStage, String buttonText) { //nowa klasa (stat metody) - buttons + setScene
-        FlowPane buttonPane = new FlowPane(Orientation.HORIZONTAL);
-        Button button = new Button(buttonText);
-        button.setPrefSize(100, 50);
-        button.setPrefSize(100, 50);
-        button.setFont(new Font("Arial", 18));
-        button.setTextFill(Color.BLACK);
-        button.setOnAction((e) -> primaryStage.setScene(scene));
-        buttonPane.getChildren().add(button);
-        return buttonPane;
-    }
+
 
 }
 

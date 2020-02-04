@@ -5,9 +5,10 @@ import javafx.scene.image.Image;
 import java.util.*;
 import java.util.List;
 
+
 public class Deck {
 
-    public static List<BeerButton> cardsDeckPreparation(){
+    public static List<BeerButton> cardsDeckPreparation() {
 
         Image cardFAXE = new Image("FAXE_CARD.jpg");
         Image cardHARNAS = new Image("HARNAS_CARD.png");
@@ -31,12 +32,12 @@ public class Deck {
 
         final List<BeerButton> buttonCollection = new ArrayList();
 
-        for(int i=0; i<beerImages.size(); i++){
-            buttonCollection.add(new BeerButton(i,beerImages.get(i)));
-            buttonCollection.add(new BeerButton(i,beerImages.get(i)));
+        for (int i = 0; i < beerImages.size(); i++) {
+            buttonCollection.add(new BeerButton(i, beerImages.get(i)));
+            buttonCollection.add(new BeerButton(i, beerImages.get(i)));
         }
 
-        for(BeerButton button: buttonCollection){
+        for (BeerButton button : buttonCollection) {
             button.setCover();
         }
 
