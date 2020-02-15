@@ -9,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class Memory extends Application {
@@ -68,7 +67,6 @@ public class Memory extends Application {
         difficultyGrid.setVgap(10);
         return difficultyGrid;
     }
-
 
 
 }

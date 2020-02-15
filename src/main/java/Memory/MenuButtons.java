@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+
 public class MenuButtons {
 
     public static FlowPane getFlowPaneButton(Scene scene, Stage primaryStage, String buttonText) {

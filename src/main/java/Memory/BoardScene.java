@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import java.io.IOException;
 
 public class BoardScene {
+
     private final Board board = new Board();
 
     Image imagebackPlayGround = new Image("Background.jpg");
