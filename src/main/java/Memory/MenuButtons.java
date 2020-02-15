@@ -17,7 +17,8 @@ public class MenuButtons {
         button.setPrefSize(100, 50);
         button.setFont(new Font("Arial", 18));
         button.setTextFill(Color.BLACK);
-        button.setOnAction((e) -> primaryStage.setScene(scene));
+        button.setOnAction((e) ->
+                primaryStage.setScene(scene));
         buttonPane.getChildren().add(button);
         return buttonPane;
     }

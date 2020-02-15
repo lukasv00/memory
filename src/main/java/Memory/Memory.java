@@ -33,9 +33,9 @@ public class Memory extends Application {
         //DIFFICULTY
         GridPane difficultyGrid = getGridPane(backgroundIntro);
 
-        FlowPane buttonEasy = MenuButtons.getFlowPaneButton(boardScener.boardScene(1000), primaryStage, "EASY");
-        FlowPane buttonMedium = MenuButtons.getFlowPaneButton(boardScener.boardScene(400), primaryStage, "MEDIUM");
-        FlowPane buttonHard = MenuButtons.getFlowPaneButton(boardScener.boardScene(100), primaryStage, "HARD");
+        FlowPane buttonEasy = MenuButtons.getFlowPaneButton(boardScener.boardScene(DifficulityConfiq.EASY_TIME), primaryStage, "EASY");
+        FlowPane buttonMedium = MenuButtons.getFlowPaneButton(boardScener.boardScene(DifficulityConfiq.MEDIUM_TIME), primaryStage, "MEDIUM");
+        FlowPane buttonHard = MenuButtons.getFlowPaneButton(boardScener.boardScene(DifficulityConfiq.HARD_TIME), primaryStage, "HARD");
 
         difficultyGrid.add(buttonEasy, 35, 50, 1, 1);
         difficultyGrid.add(buttonMedium, 35, 55, 1, 1);

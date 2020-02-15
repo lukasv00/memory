@@ -20,7 +20,7 @@ public class BoardScene {
     public BoardScene() throws IOException {
     }
 
-    public Scene boardScene(int time) {
+    public Scene boardScene(int cardShownTime) {
 
         GridPane grid = new GridPane();
         grid.setBackground(backgroundPlayGround);
@@ -32,7 +32,7 @@ public class BoardScene {
         grid.add(board.counterLabelBuilder(), 2, 0, 1, 1);
         grid.add(board.movesLabelBuilder(), 2, 1, 1, 1);
         grid.add(board.gameEndLabel(), 2, 2, 1, 1);
-        grid.add(board.playGround(time), 2, 2, 1, 1);
+        grid.add(board.playGround(cardShownTime), 2, 2, 1, 1);
 
 
         Scene boardScene = new Scene(grid, 1400, 900, Color.BLACK);

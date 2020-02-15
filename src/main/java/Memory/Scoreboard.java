@@ -46,7 +46,7 @@ public class Scoreboard {
         grid.setVgap(10);
 
 
-       // grid.add(scoreReader(), 2, 0, 1, 1);
+        // grid.add(scoreReader(), 2, 0, 1, 1);
 
         Scene scoreScene = new Scene(grid, 1400, 900, Color.BLACK);
 
