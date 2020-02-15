@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class BeerButton extends Button {
+
     private final int index;
     private final Image beerImage;
 

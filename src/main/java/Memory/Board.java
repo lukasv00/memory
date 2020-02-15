@@ -7,14 +7,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
 import java.io.IOException;
 import java.util.List;
 
 import static Memory.Deck.cardsDeckPreparation;
 
 public class Board {
-    private List<BeerButton> beerButtonList = cardsDeckPreparation();
     private BeerButton buttonClicked1 = null;
     private BeerButton buttonClicked2 = null;
     private Label pairsLabel = new Label("Pairs shown: 0");
@@ -26,7 +24,8 @@ public class Board {
     public Board() throws IOException {
     }
 
-    public TilePane playGround(int time) {
+    public TilePane playGround(int cardShownTime) {
+        List<BeerButton> beerButtonList = cardsDeckPreparation();
         for (BeerButton button : beerButtonList) {
             button.setOnMousePressed(e -> {
                 BeerButton source = (BeerButton) e.getSource();
@@ -43,7 +42,7 @@ public class Board {
                     movesLabel.setText(movesBulider.toString());
                 }
             });
-            button.setOnMouseReleased(e -> event(time));
+            button.setOnMouseReleased(e -> cardsComparison(cardShownTime));
         }
 
         TilePane cardsPane = new TilePane();
@@ -62,11 +61,11 @@ public class Board {
         return cardsPane;
     }
 
-    public void event(int time) {
+    public void cardsComparison(int cardShownTime) {
         Thread event = new Thread(() -> Platform.runLater(() -> {
             if (buttonClicked1.getIndex() != buttonClicked2.getIndex()) {
                 try {
-                    Thread.sleep(time);
+                    Thread.sleep(cardShownTime);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
