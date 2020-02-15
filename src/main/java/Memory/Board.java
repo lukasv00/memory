@@ -6,20 +6,14 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 import static Memory.Deck.cardsDeckPreparation;
 
 public class Board {
-    private Scoreboard scoreboard = new Scoreboard();
     private List<BeerButton> beerButtonList = cardsDeckPreparation();
     private BeerButton buttonClicked1 = null;
     private BeerButton buttonClicked2 = null;
@@ -28,8 +22,6 @@ public class Board {
     private Label movesLabel = new Label("Moves: 0");
     private int movesCounter = 0;
     private Label gameEndLabel = new Label("");
-    private double scoreRatio = 0;
-    private Stage primaryStage;
 
     public Board() throws IOException {
     }
@@ -95,25 +87,11 @@ public class Board {
 
             if (pairsCounter == 8) {
                 gameEndLabel.setText("YOU WON");
-                //save();
-                primaryStage.setScene(scoreboard.scoreScene());
             }
         }));
         event.start();
     }
 
-    public void save() {
-        Path path = (Path) Paths.get("C:\\Users\\Lukas\\ProjectsJava\\memory\\src\\main\\resources\\Score.txt");
-        scoreRatio = 2 * pairsCounter / movesCounter;
-
-        try (
-                BufferedWriter writer = Files.newBufferedWriter((java.nio.file.Path) path)) {
-            writer.write("Player: " + scoreRatio);
-        } catch (
-                IOException e) {
-            System.out.println("wystąpił błąd: " + e);
-        }
-    }
 
     public Label counterLabelBuilder() {
         pairsLabel.setFont(new Font("Arial", 24));

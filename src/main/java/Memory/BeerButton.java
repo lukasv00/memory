@@ -13,21 +13,21 @@ public class BeerButton extends Button {
         this.beerImage = beerImage;
     }
 
-    public void setCover(){
+    public void setCover() {
         Image coverImage = new Image("Button_Cover.jpg");
         ImageView buttonCoverView = new ImageView(coverImage);
         buttonCoverView.setPreserveRatio(true);
         buttonCoverView.setFitHeight(150);
         super.setGraphic(buttonCoverView);
-        super.setPrefSize(120,150);
+        super.setPrefSize(120, 150);
     }
 
-    public void setBeer(){
+    public void setBeer() {
         ImageView buttonBeerView = new ImageView(beerImage);
         buttonBeerView.setPreserveRatio(true);
         buttonBeerView.setFitHeight(150);
         super.setGraphic(buttonBeerView);
-        super.setPrefSize(120,150);
+        super.setPrefSize(120, 150);
     }
 
     public int getIndex() {
